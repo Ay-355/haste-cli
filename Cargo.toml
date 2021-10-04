@@ -1,0 +1,29 @@
+[package]
+name = "haste-cli"
+authors = ["Ay355"]
+repository = "https://github.com/Ay-355/haste-cli"
+homepage = "https://github.com/Ay-355/haste-cli"
+version = "0.1.0"
+description = "A command line tool for a hastebin server"
+license = "MIT"
+readme = "README.md"
+edition = "2018"
+categories = ["command-line-utilities"]
+keywords = [
+    "hastebin",
+    "cli",
+    "paste",
+    "haste"
+]
+
+
+[[bin]]
+name = "haste"
+path = "src/main.rs"
+
+
+[dependencies]
+clap = "2.33.3"
+ureq = "2.2.0"
+
+[features]
