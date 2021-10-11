@@ -2,6 +2,7 @@ use clap::ArgMatches;
 use std::fs::File;
 use std::io::{self, Read};
 mod app;
+mod upload;
 
 fn handle_stdin() -> io::Result<String> {
     let mut buffer = String::new();
@@ -23,13 +24,14 @@ fn get_input(matches: &ArgMatches) -> io::Result<String> {
                 Ok(buffer)
             }
         }
-        None => handle_stdin()
-        }
+        None => handle_stdin(),
     }
+}
 
-
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = app::build_app().get_matches();
-    let content = get_input(&matches).unwrap();
-    println!("\n{}", content);
+    let content = get_input(&matches)?;
+    let url = upload::upload_content(content)?;
+    println!("Success! https://hastebin.com/{}", url);
+    Ok(())
 }
