@@ -2,7 +2,7 @@ use clap::ArgMatches;
 use std::fs::File;
 use std::io::{self, Read};
 mod app;
-mod upload;
+mod http;
 
 fn handle_stdin() -> io::Result<String> {
     let mut buffer = String::new();
@@ -31,7 +31,8 @@ fn get_input(matches: &ArgMatches) -> io::Result<String> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = app::build_app().get_matches();
     let content = get_input(&matches)?;
-    let url = upload::upload_content(content)?;
-    println!("Success! https://hastebin.com/{}", url);
+    let key = http::upload_content(content)?;
+    let url = format!("https://hastebin.com/{}", key);
+    println!("Success! {}", url);
     Ok(())
 }
