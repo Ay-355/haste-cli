@@ -6,7 +6,7 @@ pub fn build_app() -> App<'static, 'static> {
         .about(crate_description!())
         .after_help(
             "If you invoke the subcommand without an argument or pipe, it will open interactively. \
-            Type text there and press Ctrl-d on *nix or Ctrl-z on Windows to exit and paste the content. \
+            Type text there and press Ctrl-d on unix or Ctrl-z on Windows to exit and paste the content. \
             \n\nReport issues at https://github.com/Ay-355/haste-cli"
         )
         .arg(
@@ -23,5 +23,13 @@ pub fn build_app() -> App<'static, 'static> {
                 .empty_values(false)
                 .short("l")
                 .long("language")
+        )
+        .arg(
+            Arg::with_name("raw")
+                .help("Get the raw content link instead")
+                .takes_value(false)
+                .multiple(false)
+                .short("r")
+                .long("raw")
         )
 }

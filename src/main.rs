@@ -32,7 +32,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = app::build_app().get_matches();
     let content = get_input(&matches)?;
     let key = http::upload_content(content)?;
-    let url = format!("https://hastebin.com/{}", key);
+    let url = format!(
+        "https://toptal.com/developers/hastebin{}{}/",
+        if matches.is_present("raw") {
+            "/raw/"
+        } else {
+            "/"
+        },
+        key
+    );
     println!("Success! {}", url);
     Ok(())
 }
