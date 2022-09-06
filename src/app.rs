@@ -1,7 +1,8 @@
 use clap::*;
+use std::path::Path;
 
 pub fn build_app() -> App<'static, 'static> {
-    App::new("haste")
+    let mut app = App::new("haste")
         .version(crate_version!())
         .about(crate_description!())
         .after_help(
@@ -9,6 +10,7 @@ pub fn build_app() -> App<'static, 'static> {
             Type text there and press Ctrl-d on unix or Ctrl-z on Windows to exit and paste the content. \
             \n\nReport issues at https://github.com/Ay-355/haste-cli"
         )
+        .setting(AppSettings::DisableHelpSubcommand) 
         .arg(
             Arg::with_name("FILE")
                 .help("The file you want to paste. Use '-' or nothing for standard input.")
@@ -32,4 +34,12 @@ pub fn build_app() -> App<'static, 'static> {
                 .short("r")
                 .long("raw")
         )
+
+        if Path::new("view").exists() {
+            app 
+        } else {
+        .subcommand(
+            SubCommand::with_name("view")
+                .about("Get the contents of a paste.")
+        ) }
 }
